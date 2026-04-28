@@ -155,7 +155,7 @@ nav.scrolled { background:rgba(0,0,0,.9); backdrop-filter:blur(16px); border-col
 .exp-co { font-family:var(--mono); font-size:11px; color:rgba(255,255,255,.5); letter-spacing:.06em; margin-bottom:20px; }
 .exp-pts { list-style:none; display:flex; flex-direction:column; gap:10px; }
 .exp-pts li { font-family:var(--mono); font-size:12px; font-weight:300; color:rgba(255,255,255,.58); line-height:1.75; padding-left:20px; position:relative; }
-.exp-pts li::before { content:'—'; position:absolute; left:0; color:rgba(91,156,246,.5); }
+.exp-pts li::before { content:'-'; position:absolute; left:0; color:rgba(91,156,246,.5); }
 
 /* PROJECTS */
 .proj-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); }
@@ -375,9 +375,9 @@ footer span { font-family:var(--mono); font-size:10px; letter-spacing:.12em; col
     <div class="proj-card wide reveal">
       <div class="proj-inner">
         <div>
-          <div class="proj-num">01 — Featured</div>
+          <div class="proj-num">01 / Featured</div>
           <h3 class="proj-name">IoT <em>Greenhouse</em><br>Monitoring System</h3>
-          <p class="proj-desc">End-to-end IoT system spanning hardware, AI, server infrastructure, and a real-time web dashboard. An ESP32 camera captures plant images, sends them via HTTP POST to a Node.js server on RIT's Linux infrastructure, where Gemini AI classifies hydration status and flower species — streamed live to a React dashboard alongside sensor data and historical trends.</p>
+          <p class="proj-desc">End-to-end IoT system spanning hardware, AI, server infrastructure, and a real-time web dashboard. An ESP32 camera captures plant images, sends them via HTTP POST to a Node.js server on RIT's Linux infrastructure, where Gemini AI classifies hydration status and flower species, streamed live to a React dashboard alongside sensor data and historical trends.</p>
           <div class="proj-tags">
             <span class="proj-tag">ESP32</span><span class="proj-tag">Node.js</span><span class="proj-tag">Express</span>
             <span class="proj-tag">React</span><span class="proj-tag">Gemini AI</span><span class="proj-tag">GoogleAIStudio</span>
@@ -387,8 +387,8 @@ footer span { font-family:var(--mono); font-size:10px; letter-spacing:.12em; col
         <div class="proj-highlights">
           <div class="proj-hl">Led backend engineering team across a 6-person capstone group</div>
           <div class="proj-hl">AI classifies hydration (dehydrated / overhydrated / healthy) and flower species with real-world accuracy</div>
-          <div class="proj-hl">Live sensor data — temperature &amp; humidity — with historical dashboard</div>
-          <div class="proj-hl">Fully operational, production-quality system — 100% working capstone</div>
+          <div class="proj-hl">Live sensor data: temperature and humidity with historical dashboard</div>
+          <div class="proj-hl">Fully operational, production-quality system. 100% working capstone</div>
         </div>
       </div>
     </div>
@@ -408,8 +408,24 @@ footer span { font-family:var(--mono); font-size:10px; letter-spacing:.12em; col
       </div>
     </div>
 
-    <div class="proj-card reveal d2">
+    <div class="proj-card reveal d1">
       <div class="proj-num">03</div>
+      <h3 class="proj-name"><em>MESA</em> Socially<br>Intelligent Robot</h3>
+      <p class="proj-desc">Socially intelligent robot that reads human emotions, holds real conversations, and knows everything about RIT. Featured at Imagine RIT 2026, drawing hundreds of visitors and covered live on Channel 10 News. Built in collaboration between RIT Rochester and RIT Dubai, with a VR digital twin running alongside the physical robot.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">Raspberry Pi</span><span class="proj-tag">3D Printing</span>
+        <span class="proj-tag">Conversational AI</span><span class="proj-tag">VR</span><span class="proj-tag">Robotics</span>
+      </div>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:14px;">
+        <div class="proj-hl">Hardware rebuild: 3D printed every part from head to fingertips</div>
+        <div class="proj-hl">Wired the Raspberry Pi brain and got the full system operational under serious time pressure</div>
+        <div class="proj-hl">Featured live on Channel 10 News at Imagine RIT 2026</div>
+        <div class="proj-hl">One of the standout exhibits with hundreds of visitors including dozens of kids</div>
+      </div>
+    </div>
+
+    <div class="proj-card reveal d2">
+      <div class="proj-num">04</div>
       <h3 class="proj-name">Full-Stack<br><em>E-Commerce</em> Platform</h3>
       <p class="proj-desc">Complete e-commerce system with Spring Boot REST APIs, JWT authentication, role-based authorization, and a normalized PostgreSQL schema. Deployed to AWS EC2 with GitHub Actions CI/CD for fully automated zero-downtime deployment.</p>
       <div class="proj-tags">
@@ -417,7 +433,7 @@ footer span { font-family:var(--mono); font-size:10px; letter-spacing:.12em; col
         <span class="proj-tag">PostgreSQL</span><span class="proj-tag">AWS EC2</span><span class="proj-tag">GitHub Actions</span>
       </div>
       <div style="margin-top:24px;display:flex;flex-direction:column;gap:14px;">
-        <div class="proj-hl">Full CI/CD pipeline — push to deploy</div>
+        <div class="proj-hl">Full CI/CD pipeline: push to deploy</div>
         <div class="proj-hl">Product management, cart, order tracking, secure auth</div>
       </div>
     </div>
@@ -516,7 +532,7 @@ function handleSubmit(){
       setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';btn.disabled=false;},4000);
     })
     .catch(()=>{
-      btn.textContent='Failed — Try Again';
+      btn.textContent='Failed. Try Again';
       btn.style.background='#c0392b';
       btn.style.color='#fff';
       setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';btn.style.color='';btn.disabled=false;},4000);
