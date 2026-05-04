@@ -1,3 +1,60 @@
+// ===== PARTICLES =====
+(function() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function createParticles() {
+    const count = Math.floor((w * h) / 18000);
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.2 + 0.3,
+        dx: (Math.random() - 0.5) * 0.15,
+        dy: (Math.random() - 0.5) * 0.1,
+        opacity: Math.random() * 0.4 + 0.1,
+        pulse: Math.random() * Math.PI * 2,
+      });
+    }
+  }
+  createParticles();
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    particles.forEach(p => {
+      p.x += p.dx;
+      p.y += p.dy;
+      p.pulse += 0.008;
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10;
+      if (p.y > h + 10) p.y = -10;
+      const flicker = p.opacity + Math.sin(p.pulse) * 0.15;
+      const alpha = Math.max(0, Math.min(1, flicker));
+      if (isLight) {
+        ctx.fillStyle = `rgba(61,125,217,${alpha * 0.4})`;
+      } else {
+        ctx.fillStyle = `rgba(91,156,246,${alpha * 0.5})`;
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
 // ===== NAV SCROLL =====
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', scrollY > 50);
