@@ -1,55 +1,96 @@
-// ===== PARTICLES =====
+// ===== SPACE BACKGROUND =====
 (function() {
-  const canvas = document.getElementById('particles-canvas');
+  const canvas = document.getElementById('space-canvas');
   const ctx = canvas.getContext('2d');
-  let w, h, particles;
+  let w, h, stars, nebulae, t = 0;
 
   function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
+    createStars();
   }
-  resize();
-  window.addEventListener('resize', resize);
 
-  function createParticles() {
-    const count = Math.floor((w * h) / 18000);
-    particles = [];
+  function createStars() {
+    const count = Math.floor((w * h) / 6000);
+    stars = [];
     for (let i = 0; i < count; i++) {
-      particles.push({
+      stars.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        r: Math.random() * 1.2 + 0.3,
-        dx: (Math.random() - 0.5) * 0.15,
-        dy: (Math.random() - 0.5) * 0.1,
-        opacity: Math.random() * 0.4 + 0.1,
+        r: Math.random() < 0.03 ? Math.random() * 2 + 1.5 : Math.random() * 1.2 + 0.3,
+        baseAlpha: Math.random() * 0.6 + 0.2,
         pulse: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.02 + 0.005,
       });
     }
   }
-  createParticles();
 
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
+  nebulae = [
+    { x: 0.15, y: 0.2, rx: 350, ry: 250, r: 70, g: 130, b: 240, alpha: 0.17, phase: 0 },
+    { x: 0.8, y: 0.5, rx: 300, ry: 300, r: 140, g: 60, b: 220, alpha: 0.14, phase: 2 },
+    { x: 0.4, y: 0.75, rx: 280, ry: 200, r: 90, g: 80, b: 200, alpha: 0.12, phase: 4 },
+    { x: 0.7, y: 0.15, rx: 200, ry: 180, r: 60, g: 120, b: 230, alpha: 0.10, phase: 1 },
+  ];
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  function drawNebulae() {
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    particles.forEach(p => {
-      p.x += p.dx;
-      p.y += p.dy;
-      p.pulse += 0.008;
-      if (p.x < -10) p.x = w + 10;
-      if (p.x > w + 10) p.x = -10;
-      if (p.y < -10) p.y = h + 10;
-      if (p.y > h + 10) p.y = -10;
-      const flicker = p.opacity + Math.sin(p.pulse) * 0.15;
-      const alpha = Math.max(0, Math.min(1, flicker));
+    const mult = isLight ? 0.4 : 1;
+
+    nebulae.forEach(n => {
+      const cx = n.x * w + Math.sin(t * 0.0003 + n.phase) * 30;
+      const cy = n.y * h + Math.cos(t * 0.0002 + n.phase) * 20;
+      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(n.rx, n.ry));
+      const a = n.alpha * mult;
       if (isLight) {
-        ctx.fillStyle = `rgba(61,125,217,${alpha * 0.4})`;
+        grad.addColorStop(0, `rgba(${n.r},${n.g},${n.b},${a * 0.6})`);
+        grad.addColorStop(0.4, `rgba(${n.r},${n.g},${n.b},${a * 0.3})`);
+        grad.addColorStop(1, 'transparent');
       } else {
-        ctx.fillStyle = `rgba(91,156,246,${alpha * 0.5})`;
+        grad.addColorStop(0, `rgba(${n.r},${n.g},${n.b},${a})`);
+        grad.addColorStop(0.5, `rgba(${n.r},${n.g},${n.b},${a * 0.4})`);
+        grad.addColorStop(1, 'transparent');
       }
+      ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.ellipse(cx, cy, n.rx, n.ry, 0, 0, Math.PI * 2);
       ctx.fill();
     });
+  }
+
+  function drawStars() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    stars.forEach(s => {
+      s.pulse += s.speed;
+      const flicker = s.baseAlpha + Math.sin(s.pulse) * 0.25;
+      const alpha = Math.max(0.05, Math.min(1, flicker));
+      const displayAlpha = isLight ? alpha * 0.25 : alpha;
+      if (s.r > 1.5) {
+        // Bright stars get a soft glow
+        const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 4);
+        glow.addColorStop(0, `rgba(180,200,255,${displayAlpha * 0.6})`);
+        glow.addColorStop(1, 'transparent');
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = isLight
+        ? `rgba(40,60,120,${displayAlpha})`
+        : `rgba(220,230,255,${displayAlpha})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  function draw() {
+    t++;
+    ctx.clearRect(0, 0, w, h);
+    drawNebulae();
+    drawStars();
     requestAnimationFrame(draw);
   }
   draw();
