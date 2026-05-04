@@ -287,6 +287,7 @@ nav.scrolled { background:var(--nav-scrolled); backdrop-filter:blur(16px); borde
 #experience { background: var(--bg-alt); }
 #projects { background: var(--bg); }
 #skills { background: var(--bg-alt); }
+#beyond { background: var(--bg-alt); }
 #contact { background: var(--bg); }
 
 /* ===== ABOUT ===== */
@@ -364,6 +365,10 @@ nav.scrolled { background:var(--nav-scrolled); backdrop-filter:blur(16px); borde
 .skill-items li { font-family:var(--mono); font-size:13px; font-weight:300; color:var(--skill-item); transition:color .2s; }
 .skill-col:hover .skill-items li { color:var(--text); }
 
+/* ===== BEYOND THE CODE ===== */
+#beyond .inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.beyond-grid { display:flex; flex-direction:column; gap:0; border:1px solid var(--border); }
+
 /* ===== CONTACT ===== */
 #contact .inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
 .contact-heading { font-size:clamp(44px,5.5vw,80px); font-weight:300; line-height:1.0; letter-spacing:-.02em; }
@@ -421,7 +426,7 @@ footer span { font-family:var(--mono); font-size:10px; letter-spacing:.12em; col
   .cmdk-trigger span { display:none; }
   .highfive-label { display:none; }
   #hero,.section-wrap,footer{padding-left:24px;padding-right:24px;}
-  #about .inner,#contact .inner{grid-template-columns:1fr;gap:48px;}
+  #about .inner,#beyond .inner,#contact .inner{grid-template-columns:1fr;gap:48px;}
   .proj-grid{grid-template-columns:1fr;}
   .proj-card.wide{grid-column:span 1;}
   .proj-card.wide .proj-inner{grid-template-columns:1fr;gap:32px;}
