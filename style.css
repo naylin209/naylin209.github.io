@@ -410,6 +410,52 @@ nav.scrolled { background:var(--nav-scrolled); backdrop-filter:blur(16px); borde
 footer { padding:28px 64px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
 footer span { font-family:var(--mono); font-size:10px; letter-spacing:.12em; color:var(--footer-text); }
 
+/* ===== RESUME MODAL ===== */
+.resume-overlay {
+  position:fixed; inset:0; z-index:998;
+  background:rgba(0,0,0,.75); backdrop-filter:blur(8px);
+  display:flex; align-items:center; justify-content:center;
+  padding:40px 24px;
+  opacity:0; visibility:hidden;
+  transition:opacity .2s, visibility .2s;
+}
+.resume-overlay.open { opacity:1; visibility:visible; }
+[data-theme="light"] .resume-overlay { background:rgba(0,0,0,.45); }
+
+.resume-dialog {
+  background:var(--bg-alt); border:1px solid var(--border);
+  width:min(860px,90vw); height:min(88vh,1000px);
+  display:flex; flex-direction:column;
+  transform:translateY(-12px) scale(.97);
+  transition:transform .2s;
+  box-shadow:0 24px 80px rgba(0,0,0,.6);
+}
+.resume-overlay.open .resume-dialog { transform:translateY(0) scale(1); }
+
+.resume-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 20px; border-bottom:1px solid var(--border); flex-shrink:0;
+}
+.resume-header-title {
+  font-family:var(--mono); font-size:10px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--dim);
+}
+.resume-header-actions { display:flex; gap:10px; align-items:center; }
+.resume-dl-btn { padding:8px 18px !important; font-size:9px !important; }
+.resume-close {
+  background:none; border:1px solid var(--border); outline:none;
+  width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:var(--dim); font-size:13px;
+  transition:border-color .2s, color .2s;
+}
+.resume-close:hover { border-color:var(--blue); color:var(--blue); }
+
+.resume-body { flex:1; overflow:hidden; }
+.resume-iframe { width:100%; height:100%; border:none; display:block; }
+
+/* ===== LINKEDIN BADGE ===== */
+.li-badge-wrap { margin-top:36px; }
+
 /* ===== ANIMATIONS ===== */
 @keyframes up { from{opacity:0;transform:translateY(28px);} to{opacity:1;transform:translateY(0);} }
 @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }

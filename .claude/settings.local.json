@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"c:/Users/nayli/Desktop/Nay_Folder/Nay_Projects/Portfolio_Website/\"*.pdf)"
+    ]
+  }
+}

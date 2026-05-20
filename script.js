@@ -207,7 +207,7 @@ const cmdkItems = [
   { group: 'Navigation', icon: '◇', label: 'Skills', shortcut: ['shift', 'S'], action: () => scrollToEl('skills') },
   { group: 'Navigation', icon: '◇', label: 'Beyond the Code', shortcut: ['shift', 'B'], action: () => scrollToEl('beyond') },
   { group: 'Navigation', icon: '◇', label: 'Contact', shortcut: ['shift', 'C'], action: () => scrollToEl('contact') },
-  { group: 'Links', icon: '⬡', label: 'Resume', shortcut: ['shift', 'R'], action: () => window.open('resume.pdf', '_blank') },
+  { group: 'Links', icon: '⬡', label: 'Resume', shortcut: ['shift', 'R'], action: () => openResumeModal() },
   { group: 'Links', icon: '✉', label: 'Email', shortcut: ['shift', 'M'], action: () => window.open('mailto:naylin2345@gmail.com') },
   { group: 'Links', icon: '⬡', label: 'LinkedIn', shortcut: ['shift', 'L'], action: () => window.open('https://linkedin.com/in/naylin-aung', '_blank') },
   { group: 'Links', icon: '⬡', label: 'GitHub', shortcut: ['shift', 'G'], action: () => window.open('https://github.com/naylin209', '_blank') },
@@ -299,7 +299,7 @@ document.addEventListener('keydown', (e) => {
     'S': () => scrollToEl('skills'),
     'B': () => scrollToEl('beyond'),
     'C': () => scrollToEl('contact'),
-    'R': () => window.open('resume.pdf', '_blank'),
+    'R': () => openResumeModal(),
     'M': () => window.open('mailto:naylin2345@gmail.com'),
     'L': () => window.open('https://linkedin.com/in/naylin-aung', '_blank'),
     'G': () => window.open('https://github.com/naylin209', '_blank'),
@@ -310,4 +310,29 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
     keyMap[e.key]();
   }
+});
+
+// ===== RESUME MODAL =====
+const resumeOverlay = document.getElementById('resumeOverlay');
+const resumeIframe = document.getElementById('resumeIframe');
+let resumeLoaded = false;
+
+function openResumeModal() {
+  if (!resumeLoaded) {
+    resumeIframe.src = 'resume.pdf';
+    resumeLoaded = true;
+  }
+  resumeOverlay.classList.add('open');
+}
+
+function closeResumeModal() {
+  resumeOverlay.classList.remove('open');
+}
+
+document.getElementById('resumeClose').addEventListener('click', closeResumeModal);
+resumeOverlay.addEventListener('click', (e) => {
+  if (e.target === resumeOverlay) closeResumeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && resumeOverlay.classList.contains('open')) closeResumeModal();
 });

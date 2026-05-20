@@ -6,6 +6,7 @@
 <title>Nay Lin Aung</title>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init('Datw6rnkTSTZ7VWSL');</script>
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -40,6 +41,22 @@
   </div>
 </nav>
 
+<!-- RESUME MODAL -->
+<div class="resume-overlay" id="resumeOverlay">
+  <div class="resume-dialog">
+    <div class="resume-header">
+      <span class="resume-header-title">Resume Preview</span>
+      <div class="resume-header-actions">
+        <a href="resume.pdf" download="Nay_Lin_Aung_Resume.pdf" class="btn btn-ghost resume-dl-btn">Download PDF</a>
+        <button type="button" class="resume-close" id="resumeClose">✕</button>
+      </div>
+    </div>
+    <div class="resume-body">
+      <iframe id="resumeIframe" src="" class="resume-iframe" title="Nay Lin Aung Resume"></iframe>
+    </div>
+  </div>
+</div>
+
 <!-- COMMAND PALETTE -->
 <div class="cmdk-overlay" id="cmdkOverlay">
   <div class="cmdk-dialog">
@@ -64,7 +81,7 @@
     <div class="hero-cta">
       <a href="#projects" class="btn btn-white">View Projects</a>
       <a href="#contact" class="btn btn-ghost">Get In Touch</a>
-      <a href="resume.pdf" target="_blank" class="btn btn-ghost">Resume</a>
+      <button type="button" class="btn btn-ghost" onclick="openResumeModal()">Resume</button>
     </div>
   </div>
   <div class="hero-bottom">
@@ -283,6 +300,7 @@
         <li><a href="https://linkedin.com/in/naylin-aung" target="_blank">linkedin.com/in/naylin-aung <span>→</span></a></li>
         <li><a href="https://github.com/naylin209" target="_blank">github.com/naylin209 <span>→</span></a></li>
       </ul>
+      </div>
     </div>
     <div class="reveal d2">
       <div class="cf">
